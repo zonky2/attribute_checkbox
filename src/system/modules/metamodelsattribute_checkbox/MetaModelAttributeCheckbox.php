@@ -16,7 +16,7 @@
  */
 
 /**
- * This is the MetaModelAttribute class for handling text fields.
+ * This is the MetaModelAttribute class for handling checkbox fields.
  * 
  * @package	   MetaModels
  * @subpackage AttributeCheckbox
@@ -24,6 +24,10 @@
  */
 class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 {
+	public function isPublishedField()
+	{
+		return $this->get('check_publish') == 1;
+	}
 
 	public function getSQLDataType()
 	{
@@ -33,19 +37,7 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 	public function getAttributeSettingNames()
 	{
 		return array_merge(parent::getAttributeSettingNames(), array(
-			'parentCheckbox',
-			'titleField',
-			'width50',
-			'insertBreak',
-			'sortingField',
-			'filteredField',
-			'searchableField',
-			'mandatory',
-			'defValue',
-			'uniqueItem',
-			'formatPrePost',
-			'format',
-			'editGroups'
+		'check_publish',
 		));
 	}
 
@@ -61,6 +53,23 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		$arrResult = parent::parseValue($arrRowData, $strOutputFormat);
 		$arrResult['html'] = $arrRowData[$this->getColName()];
 		return $arrResult;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function parseFilterUrl($arrUrlParams)
+	{
+		$objFilterRule = NULL;
+		if (key_exists($this->getColName(), $arrUrlParams))
+		{
+			$objFilterRule = new MetaModelFilterRuleCheckBox($this, $arrUrlParams[$this->getColName()]);
+		}
+		if ($this->isPublishedField())
+		{
+			$objFilterRule = new MetaModelFilterRuleCheckBox($this, 1);
+		}
+		return $objFilterRule;
 	}
 }
 
