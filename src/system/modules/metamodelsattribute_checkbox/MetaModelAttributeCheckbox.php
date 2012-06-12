@@ -63,11 +63,11 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		$objFilterRule = NULL;
 		if (key_exists($this->getColName(), $arrUrlParams))
 		{
-			$objFilterRule = new MetaModelFilterRuleCheckBox($this, $arrUrlParams[$this->getColName()]);
+			$objFilterRule = new MetaModelFilterRuleCheckbox($this, $arrUrlParams[$this->getColName()]);
 		}
 		if ($this->isPublishedField())
 		{
-			$objFilterRule = new MetaModelFilterRuleCheckBox($this, 1);
+			$objFilterRule = new MetaModelFilterRuleCheckbox($this, 1);
 		}
 		return $objFilterRule;
 	}
