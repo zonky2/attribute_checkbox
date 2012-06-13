@@ -63,11 +63,11 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		$objFilterRule = NULL;
 		if (key_exists($this->getColName(), $arrUrlParams))
 		{
-			$objFilterRule = new MetaModelFilterRuleCheckbox($this, $arrUrlParams[$this->getColName()]);
+			$objFilterRule = new MetaModelFilterRuleSimpleQuery('SELECT id FROM ' . $this->getMetaModel()->getTableName() . ' WHERE ' . $this->getColName() . '=?', $arrUrlParams[$this->getColName()]);
 		}
 		if ($this->isPublishedField())
 		{
-			$objFilterRule = new MetaModelFilterRuleCheckbox($this, 1);
+			$objFilterRule = new MetaModelFilterRuleSimpleQuery('SELECT id FROM ' . $this->getMetaModel()->getTableName() . ' WHERE ' . $this->getColName() . '=?', 1);
 		}
 		return $objFilterRule;
 	}
