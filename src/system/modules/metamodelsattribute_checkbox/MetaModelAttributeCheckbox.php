@@ -48,13 +48,6 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		return $arrFieldDef;
 	}
 
-	public function parseValue($arrRowData, $strOutputFormat = 'text')
-	{
-		$arrResult = parent::parseValue($arrRowData, $strOutputFormat);
-		$arrResult['text'] = $arrRowData[$this->getColName()];
-		return $arrResult;
-	}
-
 	/**
 	 * {@inheritdoc}
 	 */
