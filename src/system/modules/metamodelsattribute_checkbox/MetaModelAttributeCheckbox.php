@@ -8,7 +8,7 @@
  *
  * PHP version 5
  * @package	   MetaModels
- * @subpackage AttributeText
+ * @subpackage AttributeCheckbox
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @copyright  CyberSpectrum, MEN AT WORK
  * @license    private
@@ -17,7 +17,7 @@
 
 /**
  * This is the MetaModelAttribute class for handling checkbox fields.
- * 
+ *
  * @package	   MetaModels
  * @subpackage AttributeCheckbox
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
@@ -48,6 +48,44 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		return $arrFieldDef;
 	}
 
+	public function getItemDCA()
+	{
+		$arrDCA = parent::getItemDCA();
+		if ($this->isPublishedField())
+		{
+			$arrDCA = array_replace_recursive(
+				$arrDCA,
+				array
+				(
+					'config' => array
+					(
+						'onload_callback' => array(array('MetaModelAttributeCheckboxBackendHelper', 'checkToggle')),
+					),
+					'list' => array
+					(
+						'operations' => array
+						(
+							'toggle' => array
+							(
+								'label'               => array('Toggle', 'Woggle'),
+								'icon'                => 'visible.gif',
+								'href'                => sprintf(
+															'&amp;action=publishtoggle&amp;metamodel=%s&amp;attribute=%s',
+															$this->getMetaModel()->getTableName(),
+															$this->getColName()
+														),
+								'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.togglePublishCheckbox(this, %s);"',
+								'button_callback'     => array('MetaModelAttributeCheckboxBackendHelper', 'toggleIcon')
+							)
+						)
+					)
+				)
+			);
+			$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/metamodelsattribute_checkbox/html/publish.js';
+		}
+		return $arrDCA;
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -58,7 +96,8 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		{
 			$objFilterRule = new MetaModelFilterRuleSimpleQuery('SELECT id FROM ' . $this->getMetaModel()->getTableName() . ' WHERE ' . $this->getColName() . '=?', $arrUrlParams[$this->getColName()]);
 		}
-		if ($this->isPublishedField())
+		// TODO: make a filter setting from this, this is too intrusive and inflexible.
+		if ($this->isPublishedField() && (TL_MODE == 'FE'))
 		{
 			$objFilterRule = new MetaModelFilterRuleSimpleQuery('SELECT id FROM ' . $this->getMetaModel()->getTableName() . ' WHERE ' . $this->getColName() . '=?', 1);
 		}
