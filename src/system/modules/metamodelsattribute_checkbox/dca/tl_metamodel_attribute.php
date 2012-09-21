@@ -17,6 +17,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_publish'] = array
 	'inputType'             => 'checkbox',
 	'eval'                  => array
 	(
+        'tl_class'=>'clr'
 	),
 );
 
