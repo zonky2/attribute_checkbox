@@ -85,19 +85,6 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		}
 		return $arrDCA;
 	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function parseFilterUrl($arrUrlParams)
-	{
-		$objFilterRule = NULL;
-		if (key_exists($this->getColName(), $arrUrlParams))
-		{
-			$objFilterRule = new MetaModelFilterRuleSimpleQuery('SELECT id FROM ' . $this->getMetaModel()->getTableName() . ' WHERE ' . $this->getColName() . '=?', $arrUrlParams[$this->getColName()]);
-		}
-		return $objFilterRule;
-	}
 }
 
 ?>
