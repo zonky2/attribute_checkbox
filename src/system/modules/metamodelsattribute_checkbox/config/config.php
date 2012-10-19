@@ -21,4 +21,12 @@ $GLOBALS['METAMODELS']['attributes']['checkbox'] = array
 	'image' => 'system/modules/metamodelsattribute_checkbox/html/checkbox.gif'
 );
 
+$GLOBALS['METAMODELS']['filters']['checkbox_published'] = array
+(
+	'class' => 'MetaModelFilterSettingPublishedCheckbox',
+	'image' => 'system/themes/default/images/visible.gif',
+	'info_callback' => array('MetaModelAttributeCheckboxBackendHelper', 'drawPublishedSetting'),
+	'attr_filter' => array('checkbox')
+);
+
 ?>

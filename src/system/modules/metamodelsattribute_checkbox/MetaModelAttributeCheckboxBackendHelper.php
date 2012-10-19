@@ -106,6 +106,30 @@ class MetaModelAttributeCheckboxBackendHelper extends Backend
 			exit;
 		}
 	}
+
+	public function drawPublishedSetting($arrRow, $strLabel, DataContainer $objDC = null, $imageAttribute='', $strImage)
+	{
+		$objMetaModel = TableMetaModelFilterSetting::getInstance()->getMetaModel($objDC);
+
+		$objAttribute = $objMetaModel->getAttributeById($arrRow['attr_id']);
+
+		if ($objAttribute)
+		{
+			$strAttrName = $objAttribute->getName();
+			$strAttrColName = $objAttribute->getColName();
+		} else {
+			$strAttrName = $arrRow['attr_id'];
+			$strAttrColName = $arrRow['attr_id'];
+		}
+
+		$strReturn = sprintf(
+			$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typedesc']['checkbox_published'],
+			'<a href="' . $this->addToUrl('act=edit&amp;id='.$arrRow['id']). '">' . $strImage . '</a>',
+			$strLabel ? $strLabel : $arrRow['type'],
+			$strAttrName
+		);
+		return $strReturn;
+	}
 }
 
 ?>

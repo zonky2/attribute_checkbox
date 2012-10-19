@@ -96,11 +96,6 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		{
 			$objFilterRule = new MetaModelFilterRuleSimpleQuery('SELECT id FROM ' . $this->getMetaModel()->getTableName() . ' WHERE ' . $this->getColName() . '=?', $arrUrlParams[$this->getColName()]);
 		}
-		// TODO: make a filter setting from this, this is too intrusive and inflexible.
-		if ($this->isPublishedField() && (TL_MODE == 'FE'))
-		{
-			$objFilterRule = new MetaModelFilterRuleSimpleQuery('SELECT id FROM ' . $this->getMetaModel()->getTableName() . ' WHERE ' . $this->getColName() . '=?', 1);
-		}
 		return $objFilterRule;
 	}
 }
