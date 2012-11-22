@@ -18,7 +18,7 @@
 $GLOBALS['METAMODELS']['attributes']['checkbox'] = array
 (
 	'class' => 'MetaModelAttributeCheckbox',
-	'image' => 'system/modules/metamodelsattribute_checkbox/html/checkbox.gif'
+	'image' => 'system/modules/metamodelsattribute_checkbox/html/checkbox.png'
 );
 
 $GLOBALS['METAMODELS']['filters']['checkbox_published'] = array
