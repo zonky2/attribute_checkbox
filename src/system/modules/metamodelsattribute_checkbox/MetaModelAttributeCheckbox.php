@@ -41,16 +41,16 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		));
 	}
 
-	public function getFieldDefinition()
+	public function getFieldDefinition($arrOverrides = array())
 	{
-		$arrFieldDef = parent::getFieldDefinition();
+		$arrFieldDef = parent::getFieldDefinition($arrOverrides);
 		$arrFieldDef['inputType'] = 'checkbox';
 		return $arrFieldDef;
 	}
 
-	public function getItemDCA()
+	public function getItemDCA($arrOverrides = array())
 	{
-		$arrDCA = parent::getItemDCA();
+		$arrDCA = parent::getItemDCA($arrOverrides);
 		if ($this->isPublishedField())
 		{
 			$arrDCA = array_replace_recursive(
