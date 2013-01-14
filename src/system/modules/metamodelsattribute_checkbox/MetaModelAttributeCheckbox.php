@@ -38,6 +38,9 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 	{
 		return array_merge(parent::getAttributeSettingNames(), array(
 		'check_publish',
+		'filterable',
+		'searchable',
+		'sortable'
 		));
 	}
 
