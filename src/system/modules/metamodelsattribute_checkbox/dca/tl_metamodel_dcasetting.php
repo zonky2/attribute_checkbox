@@ -22,7 +22,8 @@ array
 		'tl_class',
 		'filterable',
 		'searchable',
-		'sortable'
+		'sortable',
+        'flag'
 	)
 );
 
