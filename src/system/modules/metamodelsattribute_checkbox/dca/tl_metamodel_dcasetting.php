@@ -17,13 +17,17 @@
 
 $GLOBALS['TL_DCA']['tl_metamodel_dcasetting']['metasubselectpalettes']['attr_id']['checkbox'] =
 array
-(
-	'backend' => array(
-		'tl_class',
-		'filterable',
-		'searchable',
+(    
+    'presentation' => array(
+        'tl_class', 
+    ),
+    'functions'  => array(
+        'mandatory',
+    ),
+	'overview' => array(		
+		'filterable',		
 		'sortable',
-        'flag'
+		'flag'
 	)
 );
 
