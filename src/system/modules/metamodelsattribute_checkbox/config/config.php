@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * The MetaModels extension allows the creation of multiple collections of custom items,
@@ -7,11 +7,11 @@
  * data in each collection.
  *
  * PHP version 5
- * @package	   MetaModels
- * @subpackage AttributeText
- * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @copyright  The MetaModels team.
- * @license    LGPL.
+ * @package		MetaModels
+ * @subpackage	AttributeCheckbox
+ * @author 		Christian Schiffler <c.schiffler@cyberspectrum.de>
+ * @copyright	The MetaModels team.
+ * @license		LGPL.
  * @filesource
  */
 
@@ -24,7 +24,7 @@ $GLOBALS['METAMODELS']['attributes']['checkbox'] = array
 $GLOBALS['METAMODELS']['filters']['checkbox_published'] = array
 (
 	'class' => 'MetaModelFilterSettingPublishedCheckbox',
-	'image' => 'system/themes/default/images/visible.gif',
+	'image' => 'system/modules/metamodels/html/visible.png',
 	'info_callback' => array('MetaModelAttributeCheckboxBackendHelper', 'drawPublishedSetting'),
 	'attr_filter' => array('checkbox')
 );
