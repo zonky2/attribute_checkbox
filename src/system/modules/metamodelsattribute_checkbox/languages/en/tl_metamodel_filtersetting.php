@@ -25,4 +25,4 @@ $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['check_ignorepublished'] = arr
  */
 
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typenames']['checkbox_published'] = 'Published state';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typedesc']['checkbox_published']  = '%s <strong>%s</strong><br /> on attribute <em>%s</em>';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typedesc']['checkbox_published']  = '%s <strong>%s</strong> %s <br /> on attribute <em>%s</em>';

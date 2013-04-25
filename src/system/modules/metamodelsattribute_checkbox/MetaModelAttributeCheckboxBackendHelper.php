@@ -118,11 +118,17 @@ class MetaModelAttributeCheckboxBackendHelper extends Backend
 			$strAttrName = $arrRow['attr_id'];
 			$strAttrColName = $arrRow['attr_id'];
 		}
+		
+		if (!empty($arrRow['comment']))
+		{
+			$arrRow['comment'] = sprintf($GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typedesc']['_comment_'], $arrRow['comment']);
+		}
 
 		$strReturn = sprintf(
 			$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typedesc']['checkbox_published'],
 			'<a href="' . $this->addToUrl('act=edit&amp;id='.$arrRow['id']). '">' . $strImage . '</a>',
 			$strLabel ? $strLabel : $arrRow['type'],
+			$arrRow['comment'],
 			$strAttrName
 		);
 		return $strReturn;
