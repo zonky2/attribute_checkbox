@@ -23,6 +23,7 @@ array
     ),
     'functions'  => array(
         'mandatory',
+		'submitOnChange'
     ),
 	'overview' => array(		
 		'filterable',		

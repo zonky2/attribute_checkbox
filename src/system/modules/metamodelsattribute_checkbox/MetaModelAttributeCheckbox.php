@@ -40,7 +40,8 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		'check_publish',
 		'filterable',
 		'searchable',
-		'sortable'
+		'sortable',
+		'submitOnChange'
 		));
 	}
 
