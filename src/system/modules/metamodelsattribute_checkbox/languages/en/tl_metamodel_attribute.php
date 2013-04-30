@@ -19,3 +19,4 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['typeOptions']['checkbox']    = 'Checkbox';
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_publish']              = array('Check publish', ' ');
