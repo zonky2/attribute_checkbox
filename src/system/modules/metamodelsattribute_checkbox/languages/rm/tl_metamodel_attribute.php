@@ -8,10 +8,9 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2013-05-13T22:12:22+02:00
+ * last-updated: 2013-05-13T23:08:13+02:00
  */
 
-
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_publish']['0']      = 'Chaschetta da publicaziun';
-$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_publish']['1']      = 'Sche quai è tschernì vegnan ils element betg mussads en glistas dal front-end. Uschia po il status da publicaziun vegnir midà.';
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_publish']['1']      = 'Sche questa chaschetta è tschernida vegnan ils element publitgads en glistas dal front-end (activaziun entras igl egl verd).';
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['typeOptions']['checkbox'] = 'Chaschetta';
