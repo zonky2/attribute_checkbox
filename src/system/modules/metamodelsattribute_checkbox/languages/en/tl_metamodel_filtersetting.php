@@ -19,6 +19,7 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['check_ignorepublished'] = array('Allow parameter override', 'If you check this, filter parameters may override this setting.');
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['check_allowpreview']    = array('Ignore filter in preview mode', 'If you check this, this filter will not get applied when an user is in "Front end preview" and has the option "show unpublished items" active.');
 
 /**
  * Reference
