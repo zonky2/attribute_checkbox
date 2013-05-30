@@ -23,6 +23,13 @@ class MetaModelFilterSettingPublishedCheckbox extends MetaModelFilterSetting
 		{
 			return;
 		}
+
+		// Skip filter when in front end preview.
+		if ($this->get('check_allowpreview') && BE_USER_LOGGED_IN)
+		{
+			return;
+		}
+
 		$objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
 		if ($objAttribute)
 		{
@@ -32,6 +39,7 @@ class MetaModelFilterSettingPublishedCheckbox extends MetaModelFilterSetting
 				$objAttribute->getColName()
 			), array(1));
 			$objFilter->addFilterRule($objFilterRule);
+
 			return;
 		}
 		// no attribute found, do not return anyting.
@@ -73,5 +81,3 @@ class MetaModelFilterSettingPublishedCheckbox extends MetaModelFilterSetting
 		);
 	}
 }
-
-?>

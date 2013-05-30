@@ -22,4 +22,5 @@ CREATE TABLE `tl_metamodel_attribute` (
 
 CREATE TABLE `tl_metamodel_filtersetting` (
   `check_ignorepublished` char(1) NOT NULL default '',
+  `check_allowpreview` char(1) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
