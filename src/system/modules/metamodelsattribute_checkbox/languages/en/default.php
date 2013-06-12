@@ -19,3 +19,5 @@
  * Miscellaneous
  */
 $GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published']   = array('Ignore published field %s', 'If you check this, the published condition for attribute %s will not be enforced in the filter.');
+
+$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1] = 'Toggle';
