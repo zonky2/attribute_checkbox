@@ -18,10 +18,7 @@
 $GLOBALS['METAMODELS']['attributes']['checkbox']['class'] = 'MetaModelAttributeCheckbox';
 $GLOBALS['METAMODELS']['attributes']['checkbox']['image'] = 'system/modules/metamodelsattribute_checkbox/html/checkbox.png';
 
-$GLOBALS['METAMODELS']['filters']['checkbox_published'] = array
-(
-	'class' => 'MetaModelFilterSettingPublishedCheckbox',
-	'image' => 'system/modules/metamodels/html/visible.png',
-	'info_callback' => array('MetaModelAttributeCheckboxBackendHelper', 'drawPublishedSetting'),
-	'attr_filter' => array('checkbox')
-);
+$GLOBALS['METAMODELS']['filters']['checkbox_published']['class'] = 'MetaModelFilterSettingPublishedCheckbox';
+$GLOBALS['METAMODELS']['filters']['checkbox_published']['image'] = 'system/modules/metamodels/html/visible.png';
+$GLOBALS['METAMODELS']['filters']['checkbox_published']['info_callback'] = array('MetaModelAttributeCheckboxBackendHelper', 'drawPublishedSetting');
+$GLOBALS['METAMODELS']['filters']['checkbox_published']['attr_filter'][] = 'checkbox';
