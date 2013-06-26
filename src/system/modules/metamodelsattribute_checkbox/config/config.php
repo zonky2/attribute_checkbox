@@ -15,11 +15,8 @@
  * @filesource
  */
 
-$GLOBALS['METAMODELS']['attributes']['checkbox'] = array
-(
-	'class' => 'MetaModelAttributeCheckbox',
-	'image' => 'system/modules/metamodelsattribute_checkbox/html/checkbox.png'
-);
+$GLOBALS['METAMODELS']['attributes']['checkbox']['class'] = 'MetaModelAttributeCheckbox';
+$GLOBALS['METAMODELS']['attributes']['checkbox']['image'] = 'system/modules/metamodelsattribute_checkbox/html/checkbox.png';
 
 $GLOBALS['METAMODELS']['filters']['checkbox_published'] = array
 (
@@ -28,5 +25,3 @@ $GLOBALS['METAMODELS']['filters']['checkbox_published'] = array
 	'info_callback' => array('MetaModelAttributeCheckboxBackendHelper', 'drawPublishedSetting'),
 	'attr_filter' => array('checkbox')
 );
-
-?>
