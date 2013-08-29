@@ -71,7 +71,7 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 						(
 							'toggle' => array
 							(
-								'label'               => array('Toggle', 'Woggle'),
+								'label'               => &$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'],
 								'icon'                => 'visible.gif',
 								'href'                => sprintf(
 															'&amp;action=publishtoggle&amp;metamodel=%s&amp;attribute=%s',
