@@ -21,9 +21,13 @@
  */
 ClassLoader::addClasses(array
 (
-	'MetaModelAttributeCheckbox'              => 'system/modules/metamodelsattribute_checkbox/MetaModelAttributeCheckbox.php',
-	'MetaModelAttributeCheckboxBackendHelper' => 'system/modules/metamodelsattribute_checkbox/MetaModelAttributeCheckboxBackendHelper.php',
-	'MetaModelFilterSettingPublishedCheckbox' => 'system/modules/metamodelsattribute_checkbox/MetaModelFilterSettingPublishedCheckbox.php',
+	'MetaModels\Attribute\Checkbox\Checkbox'       => 'system/modules/metamodelsattribute_checkbox/MetaModels/Attribute/Checkbox/Checkbox.php',
+	'MetaModels\Helper\Checkbox\Checkbox'          => 'system/modules/metamodelsattribute_checkbox/MetaModels/Helper/Checkbox/Checkbox.php',
+	'MetaModels\Filter\Setting\Published\Checkbox' => 'system/modules/metamodelsattribute_checkbox/MetaModels/Filter/Setting/Published/Checkbox.php',
+
+	'MetaModelAttributeCheckbox'              => 'system/modules/metamodelsattribute_checkbox/deprecated/MetaModelAttributeCheckbox.php',
+	'MetaModelAttributeCheckboxBackendHelper' => 'system/modules/metamodelsattribute_checkbox/deprecated/MetaModelAttributeCheckboxBackendHelper.php',
+	'MetaModelFilterSettingPublishedCheckbox' => 'system/modules/metamodelsattribute_checkbox/deprecated/MetaModelFilterSettingPublishedCheckbox.php',
 ));
 
 

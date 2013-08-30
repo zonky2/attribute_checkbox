@@ -15,21 +15,37 @@
  * @filesource
  */
 
+namespace MetaModels\Helper\Checkbox;
+
+use DcGeneral\DataDefinition\ContainerInterface;
+use MetaModels\Factory;
+use MetaModels\Dca\Filter;
+
 /**
  * This class is used from checkbox attributes for button callbacks etc.
  *
- * @package	   MetaModels
+ * @package    MetaModels
  * @subpackage AttributeCheckbox
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  */
-class MetaModelAttributeCheckboxBackendHelper extends Backend
+class Checkbox extends \Backend
 {
 	/**
 	 * Render a row for the list view in the backend.
 	 *
-	 * @param array         $arrRow   the current data row.
-	 * @param string        $strLabel the label text.
-	 * @param DataContainer $objDC    the DataContainer instance that called the method.
+	 * @param array  $arrRow   the current data row.
+	 *
+	 * @param        $strHref
+	 *
+	 * @param string $strLabel the label text.
+	 *
+	 * @param        $strTitle
+	 *
+	 * @param        $strIcon
+	 *
+	 * @param        $strAttributes
+	 *
+	 * @return string
 	 */
 	public function toggleIcon($arrRow, $strHref, $strLabel, $strTitle, $strIcon, $strAttributes)
 	{
@@ -58,20 +74,20 @@ class MetaModelAttributeCheckboxBackendHelper extends Backend
 
 	public function checkToggle($objDC)
 	{
-		if (Input::getInstance()->get('action') != 'publishtoggle')
+		if (\Input::getInstance()->get('action') != 'publishtoggle')
 		{
 			return;
 		}
 		// TODO: check if the attribute is allowed to be edited by the current backend user
-		$strAttribute = Input::getInstance()->get('attribute');
-		if(($objMetaModel = MetaModelFactory::byTableName(Input::getInstance()->get('metamodel')))
-		&& ($objAttribute = $objMetaModel->getAttribute($strAttribute)))
+		$strAttribute = \Input::getInstance()->get('attribute');
+		if(($objMetaModel = Factory::byTableName(\Input::getInstance()->get('metamodel')))
+			&& ($objAttribute = $objMetaModel->getAttribute($strAttribute)))
 		{
-			if (!($intId = intval(Input::getInstance()->get('tid'))))
+			if (!($intId = intval(\Input::getInstance()->get('tid'))))
 			{
 				return;
 			}
-			$strState = Input::getInstance()->get('state')=='1'?'1':'';
+			$strState = \Input::getInstance()->get('state')=='1'?'1':'';
 
 			$arrIds = array($intId => $strState);
 			// determine variants.
@@ -79,8 +95,9 @@ class MetaModelAttributeCheckboxBackendHelper extends Backend
 			{
 				if (!($objItem = $objMetaModel->findById($intId)))
 				{
-				 	return;
+					return;
 				}
+
 				if ($objItem->isVariantBase())
 				{
 					$objChilds = $objItem->getVariants(null);
@@ -93,20 +110,20 @@ class MetaModelAttributeCheckboxBackendHelper extends Backend
 
 			// TODO: replace with $objAttribute->setData(); call when simple attributes also have a setData and getData option.
 			// Update database
-			Database::getInstance()->prepare(sprintf(
+			\Database::getInstance()->prepare(sprintf(
 				'UPDATE %s SET %s=? WHERE id IN (%s)',
 				$objMetaModel->getTableName(),
 				$objAttribute->getColName(),
 				implode(',', array_keys($arrIds))
-				))
-			   ->execute(Input::getInstance()->get('state')=='1'?'1':'');
+			))
+				->execute(\Input::getInstance()->get('state')=='1'?'1':'');
 			exit;
 		}
 	}
 
-	public function drawPublishedSetting($arrRow, $strLabel, DataContainer $objDC = null, $imageAttribute='', $strImage)
+	public function drawPublishedSetting($arrRow, $strLabel, ContainerInterface $objDC = null, $imageAttribute='', $strImage)
 	{
-		$objMetaModel = TableMetaModelFilterSetting::getInstance()->getMetaModel($objDC);
+		$objMetaModel = Filter::getInstance()->getMetaModel($objDC);
 
 		$objAttribute = $objMetaModel->getAttributeById($arrRow['attr_id']);
 
@@ -118,7 +135,7 @@ class MetaModelAttributeCheckboxBackendHelper extends Backend
 			$strAttrName = $arrRow['attr_id'];
 			$strAttrColName = $arrRow['attr_id'];
 		}
-		
+
 		if (!empty($arrRow['comment']))
 		{
 			$arrRow['comment'] = sprintf($GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typedesc']['_comment_'], $arrRow['comment']);
@@ -134,5 +151,3 @@ class MetaModelAttributeCheckboxBackendHelper extends Backend
 		return $strReturn;
 	}
 }
-
-?>
