@@ -17,7 +17,7 @@
 
 namespace MetaModels\Helper\Checkbox;
 
-use DcGeneral\DataDefinition\ContainerInterface;
+use DcGeneral\DataContainerInterface;
 use MetaModels\Factory;
 use MetaModels\Dca\Filter;
 
@@ -121,7 +121,7 @@ class Checkbox extends \Backend
 		}
 	}
 
-	public function drawPublishedSetting($arrRow, $strLabel, ContainerInterface $objDC = null, $imageAttribute='', $strImage)
+	public function drawPublishedSetting($arrRow, $strLabel, DataContainerInterface $objDC = null, $imageAttribute='', $strImage)
 	{
 		$objMetaModel = Filter::getInstance()->getMetaModel($objDC);
 
