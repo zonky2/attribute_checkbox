@@ -31,6 +31,14 @@ use MetaModels\Dca\Filter;
 class Checkbox extends \Backend
 {
 	/**
+	 * Just to make it public.
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+	/**
 	 * Render a row for the list view in the backend.
 	 *
 	 * @param array  $arrRow   the current data row.
