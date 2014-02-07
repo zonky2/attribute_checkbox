@@ -17,9 +17,7 @@
 
 namespace MetaModels\Helper\Checkbox;
 
-use DcGeneral\DataContainerInterface;
 use MetaModels\Factory;
-use MetaModels\Dca\Filter;
 
 /**
  * This class is used from checkbox attributes for button callbacks etc.
@@ -127,35 +125,5 @@ class Checkbox extends \Backend
 				->execute(\Input::getInstance()->get('state')=='1'?'1':'');
 			exit;
 		}
-	}
-
-	public function drawPublishedSetting($arrRow, $strLabel, DataContainerInterface $objDC = null, $imageAttribute='', $strImage)
-	{
-		$objMetaModel = Filter::getInstance()->getMetaModel($objDC);
-
-		$objAttribute = $objMetaModel->getAttributeById($arrRow['attr_id']);
-
-		if ($objAttribute)
-		{
-			$strAttrName = $objAttribute->getName();
-			$strAttrColName = $objAttribute->getColName();
-		} else {
-			$strAttrName = $arrRow['attr_id'];
-			$strAttrColName = $arrRow['attr_id'];
-		}
-
-		if (!empty($arrRow['comment']))
-		{
-			$arrRow['comment'] = sprintf($GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typedesc']['_comment_'], $arrRow['comment']);
-		}
-
-		$strReturn = sprintf(
-			$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typedesc']['checkbox_published'],
-			'<a href="' . $this->addToUrl('act=edit&amp;id='.$arrRow['id']). '">' . $strImage . '</a>',
-			$strLabel ? $strLabel : $arrRow['type'],
-			$arrRow['comment'],
-			$strAttrName
-		);
-		return $strReturn;
 	}
 }
