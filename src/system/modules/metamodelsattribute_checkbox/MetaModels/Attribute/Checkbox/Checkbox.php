@@ -27,7 +27,11 @@ use MetaModels\Attribute\BaseSimple;
  */
 class Checkbox extends BaseSimple
 {
-
+	/**
+	 * Determine if the attribute is for publish usage.
+	 *
+	 * @return bool
+	 */
 	public function isPublishedField()
 	{
 		return $this->get('check_publish') == 1;
@@ -60,7 +64,7 @@ class Checkbox extends BaseSimple
 	 */
 	public function getFieldDefinition($arrOverrides = array())
 	{
-		$arrFieldDef = parent::getFieldDefinition($arrOverrides);
+		$arrFieldDef              = parent::getFieldDefinition($arrOverrides);
 		$arrFieldDef['inputType'] = 'checkbox';
 		return $arrFieldDef;
 	}
@@ -79,6 +83,7 @@ class Checkbox extends BaseSimple
 				(
 					'config' => array
 					(
+						// TODO: change to event handling.
 						'onload_callback' => array(array('MetaModels\Helper\Checkbox\Checkbox', 'checkToggle')),
 					),
 					'list' => array
@@ -95,12 +100,14 @@ class Checkbox extends BaseSimple
 									$this->getColName()
 								),
 								'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.togglePublishCheckbox(this, %s);"',
+								// TODO: change to event handling.
 								'button_callback'     => array('MetaModels\Helper\Checkbox\Checkbox', 'toggleIcon')
 							)
 						)
 					)
 				)
 			);
+
 			$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/metamodelsattribute_checkbox/html/publish.js';
 		}
 		return $arrDCA;

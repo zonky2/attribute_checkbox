@@ -18,7 +18,12 @@
 /**
  * Table tl_metamodel_filtersetting
  */
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['checkbox_published extends _attribute_']['+config'] = array('check_ignorepublished', 'check_allowpreview');
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['checkbox_published extends _attribute_']['+config'] =
+	array
+	(
+		'check_ignorepublished',
+		'check_allowpreview'
+	);
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['check_ignorepublished'] = array
 (
@@ -41,4 +46,3 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['check_allowpreview']
 		'tl_class'            => 'w50 m12',
 	),
 );
-

@@ -17,7 +17,9 @@
 
 namespace MetaModels\Helper\Checkbox;
 
+use DcGeneral\DataContainerInterface;
 use MetaModels\Factory;
+use MetaModels\IItem;
 
 /**
  * This class is used from checkbox attributes for button callbacks etc.
@@ -31,25 +33,27 @@ class Checkbox extends \Backend
 	/**
 	 * Just to make it public.
 	 */
+	// @codingStandardsIgnoreStart - This is not an useless override, as we change the visibility.
 	public function __construct()
 	{
 		parent::__construct();
 	}
+	// @codingStandardsIgnoreEnd
 
 	/**
 	 * Render a row for the list view in the backend.
 	 *
-	 * @param array  $arrRow   the current data row.
+	 * @param array  $arrRow        The current data row.
 	 *
-	 * @param        $strHref
+	 * @param string $strHref       The href to add.
 	 *
-	 * @param string $strLabel the label text.
+	 * @param string $strLabel      The label text.
 	 *
-	 * @param        $strTitle
+	 * @param string $strTitle      The title text.
 	 *
-	 * @param        $strIcon
+	 * @param string $strIcon       The path to the image.
 	 *
-	 * @param        $strAttributes
+	 * @param string $strAttributes The html attributes to use.
 	 *
 	 * @return string
 	 */
@@ -62,12 +66,11 @@ class Checkbox extends \Backend
 				$strNewState = '0';
 			} else {
 				$strNewState = '1';
-				// makes invisible out of visible
+				// Makes invisible out of visible.
 				$strIcon = 'in' . $strIcon;
 			}
 
 			$strImg = $this->generateImage($strIcon, $strLabel);
-
 
 			return "\n\n" . sprintf('<a href="%s" title="%s"%s>%s</a> ',
 				$this->addToUrl($strHref . sprintf('&amp;tid=%s&amp;state=%s', $arrRow['id'], $strNewState)),
@@ -76,27 +79,42 @@ class Checkbox extends \Backend
 				$strImg?$strImg:$strLabel
 			) . "\n\n";
 		}
+
+		return '';
 	}
 
+	/**
+	 * Check if a toggling has been performed and save the new value to the database if so.
+	 *
+	 * NOTE: This method exits the script.
+	 *
+	 * @param DataContainerInterface $objDC The data container.
+	 *
+	 * @return void
+	 */
 	public function checkToggle($objDC)
 	{
 		if (\Input::getInstance()->get('action') != 'publishtoggle')
 		{
 			return;
 		}
-		// TODO: check if the attribute is allowed to be edited by the current backend user
-		$strAttribute = \Input::getInstance()->get('attribute');
-		if(($objMetaModel = Factory::byTableName(\Input::getInstance()->get('metamodel')))
-			&& ($objAttribute = $objMetaModel->getAttribute($strAttribute)))
+
+		$environment  = $objDC->getEnvironment();
+		$input        = $environment->getInputProvider();
+		$strState     = ($input->getParameter('state') == '1') ? '1' : '';
+		$strAttribute = $input->getParameter('attribute');
+		// TODO: check if the attribute is allowed to be edited by the current backend user.
+		if (($objMetaModel = Factory::byTableName($input->getParameter('metamodel')))
+			&& ($objAttribute = $objMetaModel->getAttribute($strAttribute))
+		)
 		{
 			if (!($intId = intval(\Input::getInstance()->get('tid'))))
 			{
 				return;
 			}
-			$strState = \Input::getInstance()->get('state')=='1'?'1':'';
 
 			$arrIds = array($intId => $strState);
-			// determine variants.
+			// Determine variants.
 			if ($objMetaModel->hasVariants() && !$objAttribute->get('isvariant'))
 			{
 				if (!($objItem = $objMetaModel->findById($intId)))
@@ -106,23 +124,24 @@ class Checkbox extends \Backend
 
 				if ($objItem->isVariantBase())
 				{
-					$objChilds = $objItem->getVariants(null);
-					foreach ($objChilds as $objItem)
+					$objChildren = $objItem->getVariants(null);
+					foreach ($objChildren as $objItem)
 					{
+						/** @var IItem $objItem */
 						$arrIds[intval($objItem->get('id'))] = $strState;
 					}
 				}
 			}
 
 			// TODO: replace with $objAttribute->setData(); call when simple attributes also have a setData and getData option.
-			// Update database
+			// Update database.
 			\Database::getInstance()->prepare(sprintf(
 				'UPDATE %s SET %s=? WHERE id IN (%s)',
 				$objMetaModel->getTableName(),
 				$objAttribute->getColName(),
 				implode(',', array_keys($arrIds))
 			))
-				->execute(\Input::getInstance()->get('state')=='1'?'1':'');
+				->execute($strState);
 			exit;
 		}
 	}

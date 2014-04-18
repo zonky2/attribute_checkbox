@@ -22,6 +22,9 @@ use MetaModels\Filter\IFilter;
 use MetaModels\Filter\Rules\SimpleQuery;
 use MetaModels\Filter\Rules\StaticIdList;
 
+/**
+ * Published setting handler for checkboxes.
+ */
 class Checkbox extends Simple
 {
 	/**
@@ -52,7 +55,7 @@ class Checkbox extends Simple
 
 			return;
 		}
-		// no attribute found, do not return anyting.
+		// No attribute found, do not return anyting.
 		$objFilter->addFilterRule(new StaticIdList(array()));
 	}
 
