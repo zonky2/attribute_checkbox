@@ -15,9 +15,19 @@
  * @filesource
  */
 
-class MetaModelFilterSettingPublishedCheckbox extends MetaModelFilterSetting
+namespace MetaModels\Filter\Setting\Published;
+
+use MetaModels\Filter\Setting\Simple;
+use MetaModels\Filter\IFilter;
+use MetaModels\Filter\Rules\SimpleQuery;
+use MetaModels\Filter\Rules\StaticIdList;
+
+class Checkbox extends Simple
 {
-	public function prepareRules(IMetaModelFilter $objFilter, $arrFilterUrl)
+	/**
+	 * {@inheritdoc}
+	 */
+	public function prepareRules(IFilter $objFilter, $arrFilterUrl)
 	{
 		if ($this->get('check_ignorepublished') && $arrFilterUrl['ignore_published' . $this->get('id')])
 		{
@@ -33,7 +43,7 @@ class MetaModelFilterSettingPublishedCheckbox extends MetaModelFilterSetting
 		$objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
 		if ($objAttribute)
 		{
-			$objFilterRule = new MetaModelFilterRuleSimpleQuery(sprintf(
+			$objFilterRule = new SimpleQuery(sprintf(
 				'SELECT id FROM %s WHERE %s=?',
 				$this->getMetaModel()->getTableName(),
 				$objAttribute->getColName()
@@ -43,7 +53,7 @@ class MetaModelFilterSettingPublishedCheckbox extends MetaModelFilterSetting
 			return;
 		}
 		// no attribute found, do not return anyting.
-		$objFilter->addFilterRule(new MetaModelFilterRuleStaticIdList(array()));
+		$objFilter->addFilterRule(new StaticIdList(array()));
 	}
 
 	/**

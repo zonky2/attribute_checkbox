@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The MetaModels extension allows the creation of multiple collections of custom items,
  * each with its own unique set of selectable attributes, with attribute extendability.
@@ -15,6 +14,10 @@
  * @filesource
  */
 
+namespace MetaModels\Attribute\Checkbox;
+
+use MetaModels\Attribute\BaseSimple;
+
 /**
  * This is the MetaModelAttribute class for handling checkbox fields.
  *
@@ -22,29 +25,39 @@
  * @subpackage AttributeCheckbox
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  */
-class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
+class Checkbox extends BaseSimple
 {
+
 	public function isPublishedField()
 	{
 		return $this->get('check_publish') == 1;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getSQLDataType()
 	{
 		return 'char(1) NOT NULL default \'\'';
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getAttributeSettingNames()
 	{
 		return array_merge(parent::getAttributeSettingNames(), array(
-		'check_publish',
-		'filterable',
-		'searchable',
-		'sortable',
-		'submitOnChange'
+			'check_publish',
+			'filterable',
+			'searchable',
+			'sortable',
+			'submitOnChange'
 		));
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getFieldDefinition($arrOverrides = array())
 	{
 		$arrFieldDef = parent::getFieldDefinition($arrOverrides);
@@ -52,6 +65,9 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		return $arrFieldDef;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getItemDCA($arrOverrides = array())
 	{
 		$arrDCA = parent::getItemDCA($arrOverrides);
@@ -63,7 +79,7 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 				(
 					'config' => array
 					(
-						'onload_callback' => array(array('MetaModelAttributeCheckboxBackendHelper', 'checkToggle')),
+						'onload_callback' => array(array('MetaModels\Helper\Checkbox\Checkbox', 'checkToggle')),
 					),
 					'list' => array
 					(
@@ -74,12 +90,12 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 								'label'               => &$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'],
 								'icon'                => 'visible.gif',
 								'href'                => sprintf(
-															'&amp;action=publishtoggle&amp;metamodel=%s&amp;attribute=%s',
-															$this->getMetaModel()->getTableName(),
-															$this->getColName()
-														),
+									'&amp;action=publishtoggle&amp;metamodel=%s&amp;attribute=%s',
+									$this->getMetaModel()->getTableName(),
+									$this->getColName()
+								),
 								'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.togglePublishCheckbox(this, %s);"',
-								'button_callback'     => array('MetaModelAttributeCheckboxBackendHelper', 'toggleIcon')
+								'button_callback'     => array('MetaModels\Helper\Checkbox\Checkbox', 'toggleIcon')
 							)
 						)
 					)
@@ -90,5 +106,3 @@ class MetaModelAttributeCheckbox extends MetaModelAttributeSimple
 		return $arrDCA;
 	}
 }
-
-?>

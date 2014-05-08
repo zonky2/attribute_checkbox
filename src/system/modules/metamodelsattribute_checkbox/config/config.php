@@ -15,10 +15,14 @@
  * @filesource
  */
 
-$GLOBALS['METAMODELS']['attributes']['checkbox']['class'] = 'MetaModelAttributeCheckbox';
+$GLOBALS['METAMODELS']['attributes']['checkbox']['class'] = 'MetaModels\Attribute\Checkbox\Checkbox';
 $GLOBALS['METAMODELS']['attributes']['checkbox']['image'] = 'system/modules/metamodelsattribute_checkbox/html/checkbox.png';
 
-$GLOBALS['METAMODELS']['filters']['checkbox_published']['class'] = 'MetaModelFilterSettingPublishedCheckbox';
+$GLOBALS['METAMODELS']['filters']['checkbox_published']['class'] = 'MetaModels\Filter\Setting\Published\Checkbox';
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['image'] = 'system/modules/metamodels/html/visible.png';
-$GLOBALS['METAMODELS']['filters']['checkbox_published']['info_callback'] = array('MetaModelAttributeCheckboxBackendHelper', 'drawPublishedSetting');
+$GLOBALS['METAMODELS']['filters']['checkbox_published']['info_callback'] = array('MetaModels\Helper\Checkbox\Checkbox', 'drawPublishedSetting');
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['attr_filter'][] = 'checkbox';
+
+// non composerized Contao 2.X autoload support.
+$GLOBALS['MM_AUTOLOAD'][] = dirname(__DIR__);
+$GLOBALS['MM_AUTOLOAD'][] = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'deprecated';
