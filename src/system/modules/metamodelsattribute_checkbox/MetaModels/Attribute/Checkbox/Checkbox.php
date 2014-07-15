@@ -68,48 +68,4 @@ class Checkbox extends BaseSimple
 		$arrFieldDef['inputType'] = 'checkbox';
 		return $arrFieldDef;
 	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getItemDCA($arrOverrides = array())
-	{
-		$arrDCA = parent::getItemDCA($arrOverrides);
-		if ($this->isPublishedField())
-		{
-			$arrDCA = array_replace_recursive(
-				$arrDCA,
-				array
-				(
-					'config' => array
-					(
-						// TODO: change to event handling.
-						'onload_callback' => array(array('MetaModels\Helper\Checkbox\Checkbox', 'checkToggle')),
-					),
-					'list' => array
-					(
-						'operations' => array
-						(
-							'toggle' => array
-							(
-								'label'               => &$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'],
-								'icon'                => 'visible.gif',
-								'href'                => sprintf(
-									'&amp;action=publishtoggle&amp;metamodel=%s&amp;attribute=%s',
-									$this->getMetaModel()->getTableName(),
-									$this->getColName()
-								),
-								'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.togglePublishCheckbox(this, %s);"',
-								// TODO: change to event handling.
-								'button_callback'     => array('MetaModels\Helper\Checkbox\Checkbox', 'toggleIcon')
-							)
-						)
-					)
-				)
-			);
-
-			$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/metamodelsattribute_checkbox/html/publish.js';
-		}
-		return $arrDCA;
-	}
 }

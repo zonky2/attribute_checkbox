@@ -28,3 +28,5 @@ $GLOBALS['METAMODELS']['filters']['checkbox_published']['info_callback'] = array
 	'modelToLabelWithAttributeAndUrlParam'
 );
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['attr_filter'][] = 'checkbox';
+
+$GLOBALS['TL_EVENT_SUBSCRIBERS'][] = 'MetaModels\Events\Attribute\Checkbox\Listener';
