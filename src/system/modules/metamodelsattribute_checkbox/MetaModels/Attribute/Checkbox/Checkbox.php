@@ -68,4 +68,20 @@ class Checkbox extends BaseSimple
 		$arrFieldDef['inputType'] = 'checkbox';
 		return $arrFieldDef;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getFilterOptions($arrIds, $usedOnly, &$arrCount = null)
+	{
+		if (!($arrIds || $usedOnly))
+		{
+			return array(
+				'0' => $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_0'],
+				'1' => $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_1']
+			);
+		}
+
+		return parent::getFilterOptions($arrIds, $usedOnly, $arrCount);
+	}
 }
