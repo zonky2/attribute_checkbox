@@ -53,6 +53,9 @@ class Checkbox extends BaseSimple
     {
         return array_merge(parent::getAttributeSettingNames(), array(
             'check_publish',
+            'check_listview',
+            'check_listviewicon',
+            'check_listviewicondisabled',
             'filterable',
             'searchable',
             'sortable',
