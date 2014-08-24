@@ -23,5 +23,5 @@ $GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published'][1] = '
 
 $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1] = 'Toggle';
 
-$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_0'] = 'Active';
-$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_1'] = 'Inactive';
+$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_0'] = 'Inactive';
+$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_1'] = 'Active';
