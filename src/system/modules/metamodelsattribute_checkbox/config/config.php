@@ -17,15 +17,15 @@
 
 $GLOBALS['METAMODELS']['attributes']['checkbox']['class'] = 'MetaModels\Attribute\Checkbox\Checkbox';
 $GLOBALS['METAMODELS']['attributes']['checkbox']['image'] =
-	'system/modules/metamodelsattribute_checkbox/html/checkbox.png';
+    'system/modules/metamodelsattribute_checkbox/html/checkbox.png';
 
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['class']         =
-	'MetaModels\Filter\Setting\Published\Checkbox';
+    'MetaModels\Filter\Setting\Published\Checkbox';
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['image']         =
-	'system/modules/metamodels/html/visible.png';
+    'system/modules/metamodels/html/visible.png';
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['info_callback'] = array(
-	'MetaModels\DcGeneral\Events\Table\FilterSetting\DrawSetting',
-	'modelToLabelWithAttributeAndUrlParam'
+    'MetaModels\DcGeneral\Events\Table\FilterSetting\DrawSetting',
+    'modelToLabelWithAttributeAndUrlParam'
 );
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['attr_filter'][] = 'checkbox';
 

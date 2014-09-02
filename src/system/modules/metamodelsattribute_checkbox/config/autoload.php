@@ -21,5 +21,5 @@
  */
 TemplateLoader::addFiles(array
 (
-	'mm_attr_checkbox'              => 'system/modules/metamodelsattribute_checkbox/templates',
+    'mm_attr_checkbox'              => 'system/modules/metamodelsattribute_checkbox/templates',
 ));

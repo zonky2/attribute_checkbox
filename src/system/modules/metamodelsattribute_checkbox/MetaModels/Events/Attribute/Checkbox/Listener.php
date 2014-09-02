@@ -28,62 +28,62 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * This class creates the default instances for property conditions when generating input screens.
  */
 class Listener
-	implements EventSubscriberInterface
+    implements EventSubscriberInterface
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	public static function getSubscribedEvents()
-	{
-		return array(
-			BuildAttributeEvent::NAME => __CLASS__ . '::handle'
-		);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return array(
+            BuildAttributeEvent::NAME => __CLASS__ . '::handle'
+        );
+    }
 
-	/**
-	 * Create the property conditions.
-	 *
-	 * @param BuildAttributeEvent $event The event.
-	 *
-	 * @return void
-	 *
-	 * @throws \RuntimeException When no MetaModel is attached to the event or any other important information could
-	 *                           not be retrieved.
-	 */
-	public function handle(BuildAttributeEvent $event)
-	{
-		if (!(($event->getAttribute() instanceof Checkbox) && ($event->getAttribute()->get('check_publish') == 1)))
-		{
-			return;
-		}
+    /**
+     * Create the property conditions.
+     *
+     * @param BuildAttributeEvent $event The event.
+     *
+     * @return void
+     *
+     * @throws \RuntimeException When no MetaModel is attached to the event or any other important information could
+     *                           not be retrieved.
+     */
+    public function handle(BuildAttributeEvent $event)
+    {
+        if (!(($event->getAttribute() instanceof Checkbox) && ($event->getAttribute()->get('check_publish') == 1)))
+        {
+            return;
+        }
 
-		$container = $event->getContainer();
+        $container = $event->getContainer();
 
-		if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME))
-		{
-			$view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
-		}
-		else
-		{
-			$view = new Contao2BackendViewDefinition();
-			$container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
-		}
+        if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME))
+        {
+            $view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
+        }
+        else
+        {
+            $view = new Contao2BackendViewDefinition();
+            $container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
+        }
 
-		$commands    = $view->getModelCommands();
-		$attribute   = $event->getAttribute();
-		$commandName = 'publishtoggle_' . $attribute->getColName();
-		if (!$commands->hasCommandNamed($commandName))
-		{
-			$toggle = new ToggleCommand();
-			$toggle->setName($commandName);
-			$toggle->setLabel($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][0]);
-			$toggle->setDescription($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1]);
-			$extra         = $toggle->getExtra();
-			$extra['icon'] = 'visible.gif';
-			$toggle->setToggleProperty($attribute->getColName());
+        $commands    = $view->getModelCommands();
+        $attribute   = $event->getAttribute();
+        $commandName = 'publishtoggle_' . $attribute->getColName();
+        if (!$commands->hasCommandNamed($commandName))
+        {
+            $toggle = new ToggleCommand();
+            $toggle->setName($commandName);
+            $toggle->setLabel($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][0]);
+            $toggle->setDescription($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1]);
+            $extra         = $toggle->getExtra();
+            $extra['icon'] = 'visible.gif';
+            $toggle->setToggleProperty($attribute->getColName());
 
-			$commands->addCommand($toggle);
-		}
-	}
+            $commands->addCommand($toggle);
+        }
+    }
 }
 
