@@ -53,18 +53,18 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"MetaModels": "src/system/modules/metamodelsattribute_checkbox"
+			"MetaModels": "src"
 		}
 	},
 	"extra":{
 		"contao": {
 			"symlinks":{
-				"src/system/modules/metamodelsattribute_checkbox":"system/modules/metamodelsattribute_checkbox"
+				"contao":"system/modules/metamodelsattribute_checkbox"
 			},
 			"transifex": {
 				"project": "metamodels",
 				"prefix": "attribute_checkbox-",
-				"languages_cto": "src/system/modules/metamodelsattribute_checkbox/languages",
+				"languages_cto": "contao/languages",
 				"languages_tx": ".tx"
 			}
 		},
