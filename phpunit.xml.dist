@@ -12,7 +12,7 @@
 		 bootstrap="tests/bootstrap.php"
 		>
 	<testsuites>
-		<testsuite name="MetaModels attribute alias tests">
+		<testsuite name="MetaModels attribute checkbox tests">
 			<directory>./tests/MetaModels/</directory>
 		</testsuite>
 	</testsuites>
@@ -25,7 +25,7 @@
 
 	<filter>
 		<whitelist>
-			<directory>./src/system/modules/metamodels_attribute/MetaModels/</directory>
+			<directory>./src/MetaModels/</directory>
 		</whitelist>
 	</filter>
 </phpunit>

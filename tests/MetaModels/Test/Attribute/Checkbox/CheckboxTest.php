@@ -15,14 +15,14 @@
  * @filesource
  */
 
-namespace MetaModels\Test\Attribute\Alias;
+namespace MetaModels\Test\Attribute\Checkbox;
 
-use MetaModels\Attribute\Alias\Alias;
+use MetaModels\Attribute\Checkbox\Checkbox;
 
 /**
- * Unit tests to test class Alias.
+ * Unit tests to test class Checkbox.
  */
-class AliasTest extends \PHPUnit_Framework_TestCase
+class CheckboxTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Mock a MetaModel.
@@ -65,7 +65,7 @@ class AliasTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstantiation()
     {
-        $text = new Alias($this->mockMetaModel('en', 'en'));
-        $this->assertInstanceOf('MetaModels\Attribute\Alias\Alias', $text);
+        $text = new Checkbox($this->mockMetaModel('en', 'en'));
+        $this->assertInstanceOf('MetaModels\Attribute\Checkbox\Checkbox', $text);
     }
 }
