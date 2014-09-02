@@ -15,8 +15,8 @@
  * @filesource
  */
 
-/**
- * Fields
- */
-$GLOBALS['TL_LANG']['tl_metamodel_attribute']['typeOptions']['checkbox']    = 'Checkbox';
-$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_publish']              = array('Publishing checkbox', 'If this is selected, the items will appear in lists in the frontend (you will get the green "eye" for free.');
+// Fields.
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['typeOptions']['checkbox'] = 'Checkbox';
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_publish'][0]        = 'Publishing checkbox';
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_publish'][1]        =
+    'If this is selected, the items will appear in lists in the frontend (you will get the green "eye" for free.';

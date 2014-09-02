@@ -32,20 +32,17 @@ class Checkbox extends Simple
      */
     public function prepareRules(IFilter $objFilter, $arrFilterUrl)
     {
-        if ($this->get('check_ignorepublished') && $arrFilterUrl['ignore_published' . $this->get('id')])
-        {
+        if ($this->get('check_ignorepublished') && $arrFilterUrl['ignore_published' . $this->get('id')]) {
             return;
         }
 
         // Skip filter when in front end preview.
-        if ($this->get('check_allowpreview') && BE_USER_LOGGED_IN)
-        {
+        if ($this->get('check_allowpreview') && BE_USER_LOGGED_IN) {
             return;
         }
 
         $objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
-        if ($objAttribute)
-        {
+        if ($objAttribute) {
             $objFilterRule = new SimpleQuery(sprintf(
                 'SELECT id FROM %s WHERE %s=?',
                 $this->getMetaModel()->getTableName(),
@@ -72,16 +69,14 @@ class Checkbox extends Simple
      */
     public function getParameterDCA()
     {
-        if (!$this->get('check_ignorepublished'))
-        {
+        if (!$this->get('check_ignorepublished')) {
             return array();
         }
 
         $objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
 
         $arrLabel = array();
-        foreach ($GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published'] as $strLabel)
-        {
+        foreach ($GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published'] as $strLabel) {
             $arrLabel[] = sprintf($strLabel, $objAttribute->getName());
         }
 

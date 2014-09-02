@@ -27,8 +27,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * This class creates the default instances for property conditions when generating input screens.
  */
-class Listener
-    implements EventSubscriberInterface
+class Listener implements EventSubscriberInterface
 {
     /**
      * {@inheritDoc}
@@ -52,19 +51,15 @@ class Listener
      */
     public function handle(BuildAttributeEvent $event)
     {
-        if (!(($event->getAttribute() instanceof Checkbox) && ($event->getAttribute()->get('check_publish') == 1)))
-        {
+        if (!(($event->getAttribute() instanceof Checkbox) && ($event->getAttribute()->get('check_publish') == 1))) {
             return;
         }
 
         $container = $event->getContainer();
 
-        if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME))
-        {
+        if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME)) {
             $view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
-        }
-        else
-        {
+        } else {
             $view = new Contao2BackendViewDefinition();
             $container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
         }
@@ -72,8 +67,7 @@ class Listener
         $commands    = $view->getModelCommands();
         $attribute   = $event->getAttribute();
         $commandName = 'publishtoggle_' . $attribute->getColName();
-        if (!$commands->hasCommandNamed($commandName))
-        {
+        if (!$commands->hasCommandNamed($commandName)) {
             $toggle = new ToggleCommand();
             $toggle->setName($commandName);
             $toggle->setLabel($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][0]);
@@ -86,4 +80,3 @@ class Listener
         }
     }
 }
-

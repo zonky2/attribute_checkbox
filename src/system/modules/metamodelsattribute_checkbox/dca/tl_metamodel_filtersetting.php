@@ -15,9 +15,6 @@
  * @filesource
  */
 
-/**
- * Table tl_metamodel_filtersetting
- */
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['checkbox_published extends _attribute_']['+config'] =
     array
     (
@@ -27,22 +24,24 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['checkbox_publi
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['check_ignorepublished'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['check_ignorepublished'],
-    'exclude'                 => true,
-    'inputType'               => 'checkbox',
-    'eval'                    => array(
-        'alwaysSave'          => true,
-        'tl_class'            => 'w50 m12',
+    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['check_ignorepublished'],
+    'exclude'   => true,
+    'inputType' => 'checkbox',
+    'eval'      => array
+    (
+        'alwaysSave' => true,
+        'tl_class'   => 'w50 m12',
     ),
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['check_allowpreview'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['check_allowpreview'],
-    'exclude'                 => true,
-    'inputType'               => 'checkbox',
-    'eval'                    => array(
-        'alwaysSave'          => true,
-        'tl_class'            => 'w50 m12',
+    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['check_allowpreview'],
+    'exclude'   => true,
+    'inputType' => 'checkbox',
+    'eval'      => array
+    (
+        'alwaysSave' => true,
+        'tl_class'   => 'w50 m12',
     ),
 );

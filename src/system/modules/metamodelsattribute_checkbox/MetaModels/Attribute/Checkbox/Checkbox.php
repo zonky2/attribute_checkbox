@@ -75,8 +75,7 @@ class Checkbox extends BaseSimple
      */
     public function getFilterOptions($arrIds, $usedOnly, &$arrCount = null)
     {
-        if (!($arrIds || $usedOnly))
-        {
+        if (!($arrIds || $usedOnly)) {
             return array(
                 '0' => $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_0'],
                 '1' => $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_1']
