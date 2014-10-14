@@ -75,6 +75,9 @@ class Checkbox extends BaseSimple
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function getFilterOptions($arrIds, $usedOnly, &$arrCount = null)
     {

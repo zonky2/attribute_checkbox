@@ -66,6 +66,9 @@ class Checkbox extends Simple
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function getParameterDCA()
     {
