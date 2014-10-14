@@ -20,8 +20,9 @@ namespace MetaModels\Events\Attribute\Checkbox;
 use ContaoCommunityAlliance\DcGeneral\Contao\DataDefinition\Definition\Contao2BackendViewDefinition;
 use ContaoCommunityAlliance\DcGeneral\Contao\DataDefinition\Definition\Contao2BackendViewDefinitionInterface;
 use ContaoCommunityAlliance\DcGeneral\DataDefinition\Definition\View\ToggleCommand;
+use ContaoCommunityAlliance\DcGeneral\DataDefinition\Definition\View\ToggleCommandInterface;
 use MetaModels\Attribute\Checkbox\Checkbox;
-use MetaModels\Events\BuildAttributeEvent;
+use MetaModels\DcGeneral\Events\MetaModel\BuildMetaModelOperationsEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -35,67 +36,85 @@ class Listener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            BuildAttributeEvent::NAME => __CLASS__ . '::handle'
+            BuildMetaModelOperationsEvent::NAME => __CLASS__ . '::handle'
         );
+    }
+
+    /**
+     * Build a single toggle operation.
+     *
+     * @param Checkbox $attribute The checkbox attribute.
+     *
+     * @return ToggleCommandInterface
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     */
+    protected function buildCommand($attribute)
+    {
+        if ($attribute->get('check_listview') == 1) {
+            $commandName = 'listviewtoggle_' . $attribute->getColName();
+        } else {
+            $commandName = 'publishtoggle_' . $attribute->getColName();
+        }
+        $toggle = new ToggleCommand();
+        $toggle->setName($commandName);
+        $toggle->setLabel($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][0]);
+        $toggle->setDescription($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1]);
+        $extra           = $toggle->getExtra();
+        $extra['icon']   = 'visible.gif';
+        $objIconEnabled  = \FilesModel::findByUuid($attribute->get('check_listviewicon'));
+        $objIconDisabled = \FilesModel::findByUuid($attribute->get('check_listviewicondisabled'));
+
+        if ($attribute->get('check_listview') == 1 && $objIconEnabled->path && $objIconDisabled->path) {
+            $extra['icon']          = $objIconEnabled->path;
+            $extra['icon_disabled'] = $objIconDisabled->path;
+        } else {
+            $extra['icon'] = 'visible.gif';
+        }
+
+        $toggle->setToggleProperty($attribute->getColName());
+
+        return $toggle;
     }
 
     /**
      * Create the property conditions.
      *
-     * @param BuildAttributeEvent $event The event.
+     * @param BuildMetaModelOperationsEvent $event The event.
      *
      * @return void
      *
      * @throws \RuntimeException When no MetaModel is attached to the event or any other important information could
      *                           not be retrieved.
      */
-    public function handle(BuildAttributeEvent $event)
+    public function handle(BuildMetaModelOperationsEvent $event)
     {
-        if (!(($event->getAttribute() instanceof Checkbox)
-            && (($event->getAttribute()->get('check_publish') == 1)
-                || ($event->getAttribute()->get('check_listview') == 1))
-        )
-        ) {
-            return;
-        }
+        foreach ($event->getMetaModel()->getAttributes() as $attribute) {
+            if (($attribute instanceof Checkbox)
+                && (($attribute->get('check_publish') == 1)
+                    || ($attribute->get('check_listview') == 1))
+            ) {
+                $toggle    = $this->buildCommand($attribute);
+                $container = $event->getContainer();
+                if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME)) {
+                    $view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
+                } else {
+                    $view = new Contao2BackendViewDefinition();
+                    $container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
+                }
 
-        $container = $event->getContainer();
+                $commands = $view->getModelCommands();
 
-        if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME)) {
-            $view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
-        } else {
-            $view = new Contao2BackendViewDefinition();
-            $container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
-        }
-
-        $commands  = $view->getModelCommands();
-        $attribute = $event->getAttribute();
-        if ($event->getAttribute()->get('check_listview') == 1) {
-            $commandName = 'listviewtoggle_' . $attribute->getColName();
-        } else {
-            $commandName = 'publishtoggle_' . $attribute->getColName();
-        }
-
-        if (!$commands->hasCommandNamed($commandName)) {
-            $toggle = new ToggleCommand();
-            $toggle->setName($commandName);
-            $toggle->setLabel($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][0]);
-            $toggle->setDescription($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1]);
-            $extra           = $toggle->getExtra();
-            $extra['icon']   = 'visible.gif';
-            $objIconEnabled  = \FilesModel::findByUuid($event->getAttribute()->get('check_listviewicon'));
-            $objIconDisabled = \FilesModel::findByUuid($event->getAttribute()->get('check_listviewicondisabled'));
-
-            if ($event->getAttribute()->get('check_listview') == 1 && $objIconEnabled->path && $objIconDisabled->path) {
-                $extra['icon']          = $objIconEnabled->path;
-                $extra['icon_disabled'] = $objIconDisabled->path;
-            } else {
-                $extra['icon'] = 'visible.gif';
+                if (!$commands->hasCommandNamed($toggle->getName())) {
+                    if ($commands->hasCommandNamed('show')) {
+                        $info = $commands->getCommandNamed('show');
+                    } else {
+                        $info = null;
+                    }
+                    $commands->addCommand($toggle, $info);
+                }
             }
-
-            $toggle->setToggleProperty($attribute->getColName());
-
-            $commands->addCommand($toggle);
         }
     }
 }
