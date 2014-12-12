@@ -44,7 +44,7 @@
     "contao-community-alliance/coding-standard": "~1.0"
   },
   "conflict": {
-    "contao/core": "3.0.*"
+    "contao/core": "3.4.0"
   },
   "autoload": {
     "psr-0": {
