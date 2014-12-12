@@ -15,10 +15,6 @@
  * @filesource
  */
 
-$GLOBALS['METAMODELS']['attributes']['checkbox']['class'] = 'MetaModels\Attribute\Checkbox\Checkbox';
-$GLOBALS['METAMODELS']['attributes']['checkbox']['image'] =
-    'system/modules/metamodelsattribute_checkbox/html/checkbox.png';
-
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['class']         =
     'MetaModels\Filter\Setting\Published\Checkbox';
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['image']         =
@@ -29,4 +25,15 @@ $GLOBALS['METAMODELS']['filters']['checkbox_published']['info_callback'] = array
 );
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['attr_filter'][] = 'checkbox';
 
-$GLOBALS['TL_EVENT_SUBSCRIBERS'][] = 'MetaModels\Events\Attribute\Checkbox\Listener';
+$GLOBALS['TL_EVENTS'][\MetaModels\MetaModelsEvents::SUBSYSTEM_BOOT_BACKEND][] = function (
+    MetaModels\Events\MetaModelsBootEvent $event
+) {
+    new MetaModels\Events\Attribute\Checkbox\Listener($event->getServiceContainer());
+};
+
+$GLOBALS['TL_EVENTS'][\MetaModels\MetaModelsEvents::ATTRIBUTE_FACTORY_CREATE][] = function (
+    \MetaModels\Attribute\Events\CreateAttributeFactoryEvent $event
+) {
+    $factory = $event->getFactory();
+    $factory->addTypeFactory(new MetaModels\Attribute\Checkbox\AttributeTypeFactory());
+};

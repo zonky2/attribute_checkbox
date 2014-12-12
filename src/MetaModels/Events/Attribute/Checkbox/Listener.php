@@ -8,7 +8,7 @@
  * PHP version 5
  *
  * @package    MetaModels
- * @subpackage Frontend
+ * @subpackage AttributeCheckbox
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @copyright  The MetaModels team.
  * @license    LGPL.
@@ -22,22 +22,24 @@ use ContaoCommunityAlliance\DcGeneral\Contao\DataDefinition\Definition\Contao2Ba
 use ContaoCommunityAlliance\DcGeneral\DataDefinition\Definition\View\ToggleCommand;
 use ContaoCommunityAlliance\DcGeneral\DataDefinition\Definition\View\ToggleCommandInterface;
 use MetaModels\Attribute\Checkbox\Checkbox;
+use MetaModels\DcGeneral\Events\BaseSubscriber;
 use MetaModels\DcGeneral\Events\MetaModel\BuildMetaModelOperationsEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * This class creates the default instances for property conditions when generating input screens.
  */
-class Listener implements EventSubscriberInterface
+class Listener extends BaseSubscriber
 {
     /**
      * {@inheritDoc}
      */
-    public static function getSubscribedEvents()
+    public function registerEventsInDispatcher()
     {
-        return array(
-            BuildMetaModelOperationsEvent::NAME => __CLASS__ . '::handle'
-        );
+        $this
+            ->addListener(
+                BuildMetaModelOperationsEvent::NAME,
+                array($this, 'handle')
+            );
     }
 
     /**
