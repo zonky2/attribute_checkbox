@@ -17,16 +17,11 @@
  * @filesource
  */
 
-$GLOBALS['METAMODELS']['filters']['checkbox_published']['attr_filter'][] = 'checkbox';
-$GLOBALS['METAMODELS']['filters']['checkbox_published']['info_callback'] = array(
-    'MetaModels\DcGeneral\Events\Table\FilterSetting\DrawSetting',
-    'modelToLabelWithAttributeAndUrlParam'
-);
-
 $GLOBALS['TL_EVENTS'][\MetaModels\MetaModelsEvents::SUBSYSTEM_BOOT_BACKEND][] = function (
     MetaModels\Events\MetaModelsBootEvent $event
 ) {
     new MetaModels\Events\Attribute\Checkbox\Listener($event->getServiceContainer());
+    new MetaModels\Events\Attribute\Checkbox\PublishedFilterSettingTypeRenderer($event->getServiceContainer());
 };
 
 $GLOBALS['TL_EVENTS'][\MetaModels\MetaModelsEvents::ATTRIBUTE_FACTORY_CREATE][] = function (

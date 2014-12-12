@@ -30,6 +30,7 @@ class AttributeTypeFactory extends AbstractAttributeTypeFactory
     public function __construct()
     {
         parent::__construct();
+
         $this->typeName  = 'checkbox';
         $this->typeIcon  = 'system/modules/metamodelsattribute_checkbox/html/checkbox.png';
         $this->typeClass = 'MetaModels\Attribute\Checkbox\Checkbox';

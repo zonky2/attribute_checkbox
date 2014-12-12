@@ -30,9 +30,10 @@ class FilterSettingTypeFactory extends AbstractFilterSettingTypeFactory
     public function __construct()
     {
         parent::__construct();
-        $this->typeName    = 'checkbox_published';
-        $this->typeIcon    = 'system/modules/metamodels/html/visible.png';
-        $this->typeClass   = 'MetaModels\Filter\Setting\Published\Checkbox';
-        $this->maxChildren = 0;
+        $this
+            ->setTypeName('checkbox_published')
+            ->setTypeIcon('system/modules/metamodels/html/visible.png')
+            ->setTypeClass('MetaModels\Filter\Setting\Published\Checkbox')
+            ->allowAttributeTypes('checkbox');
     }
 }
