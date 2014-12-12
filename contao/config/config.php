@@ -17,15 +17,11 @@
  * @filesource
  */
 
-$GLOBALS['METAMODELS']['filters']['checkbox_published']['class']         =
-    'MetaModels\Filter\Setting\Published\Checkbox';
-$GLOBALS['METAMODELS']['filters']['checkbox_published']['image']         =
-    'system/modules/metamodels/html/visible.png';
+$GLOBALS['METAMODELS']['filters']['checkbox_published']['attr_filter'][] = 'checkbox';
 $GLOBALS['METAMODELS']['filters']['checkbox_published']['info_callback'] = array(
     'MetaModels\DcGeneral\Events\Table\FilterSetting\DrawSetting',
     'modelToLabelWithAttributeAndUrlParam'
 );
-$GLOBALS['METAMODELS']['filters']['checkbox_published']['attr_filter'][] = 'checkbox';
 
 $GLOBALS['TL_EVENTS'][\MetaModels\MetaModelsEvents::SUBSYSTEM_BOOT_BACKEND][] = function (
     MetaModels\Events\MetaModelsBootEvent $event
@@ -38,4 +34,11 @@ $GLOBALS['TL_EVENTS'][\MetaModels\MetaModelsEvents::ATTRIBUTE_FACTORY_CREATE][] 
 ) {
     $factory = $event->getFactory();
     $factory->addTypeFactory(new MetaModels\Attribute\Checkbox\AttributeTypeFactory());
+};
+
+$GLOBALS['TL_EVENTS'][\MetaModels\MetaModelsEvents::FILTER_SETTING_FACTORY_CREATE][] = function (
+    \MetaModels\Filter\Setting\Events\CreateFilterSettingFactoryEvent $event
+) {
+    $factory = $event->getFactory();
+    $factory->addTypeFactory(new MetaModels\Filter\Setting\Published\FilterSettingTypeFactory());
 };
