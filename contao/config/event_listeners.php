@@ -10,8 +10,6 @@
  * @package     MetaModels
  * @subpackage  AttributeCheckbox
  * @author      Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @author      Andreas Isaak <info@andreas-isaak.de>
- * @author      David Maack <maack@men-at-work.de>
  * @copyright   The MetaModels team.
  * @license     LGPL.
  * @filesource
