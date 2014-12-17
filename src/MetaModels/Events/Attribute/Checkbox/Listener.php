@@ -63,7 +63,12 @@ class Listener extends BaseSubscriber
         $toggle = new ToggleCommand();
         $toggle->setName($commandName);
         $toggle->setLabel($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][0]);
-        $toggle->setDescription($GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1]);
+        $toggle->setDescription(
+            sprintf(
+                $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1],
+                $attribute->getName()
+            )
+        );
         $extra           = $toggle->getExtra();
         $extra['icon']   = 'visible.gif';
         $objIconEnabled  = \FilesModel::findByUuid($attribute->get('check_listviewicon'));

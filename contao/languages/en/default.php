@@ -20,7 +20,8 @@ $GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published'][0] = '
 $GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published'][1] =
     'If you check this, the published condition for attribute %s will not be enforced in the filter.';
 
-$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1] = 'Toggle';
+$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][0] = 'Toggle';
+$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle'][1] = 'Toggle the state of attribute %s for this item';
 
 $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_0'] = 'Inactive';
 $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_1'] = 'Active';
