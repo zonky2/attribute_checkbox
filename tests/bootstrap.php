@@ -6,7 +6,6 @@
  * data in each collection.
  *
  * PHP version 5
- *
  * @package    MetaModels
  * @subpackage Tests
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
@@ -32,5 +31,3 @@ if (
         'php composer.phar install'.PHP_EOL;
     exit(1);
 }
-
-$loader->add('MetaModels\Test', __DIR__);
