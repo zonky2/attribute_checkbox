@@ -61,8 +61,6 @@ class Checkbox extends BaseSimple
             'check_listviewicon',
             'check_listviewicondisabled',
             'filterable',
-            'searchable',
-            'sortable',
             'submitOnChange'
         ));
     }
