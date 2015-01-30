@@ -81,15 +81,15 @@ class Checkbox extends BaseSimple
      * @SuppressWarnings(PHPMD.Superglobals)
      * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
-    public function getFilterOptions($arrIds, $usedOnly, &$arrCount = null)
+    public function getFilterOptions($idList, $usedOnly, &$arrCount = null)
     {
-        if (!($arrIds || $usedOnly)) {
+        if (!($idList || $usedOnly)) {
             return array(
                 '0' => $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_0'],
                 '1' => $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['value_1']
             );
         }
 
-        return parent::getFilterOptions($arrIds, $usedOnly, $arrCount);
+        return parent::getFilterOptions($idList, $usedOnly, $arrCount);
     }
 }
