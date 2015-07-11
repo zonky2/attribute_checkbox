@@ -8,10 +8,11 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2013-06-13T00:10:33+02:00
+ * last-updated: 2015-07-11T04:10:49+02:00
  */
-
 
 $GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published']['0'] = 'Ignorer udgivet felt %s';
 $GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published']['1'] = 'Hvis du vælger dette, overskriver det valget om udgivelse for egenskaben %s i filtreringen.';
+$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle']['0']       = 'Skift';
 $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle']['1']       = 'Skift';
+
