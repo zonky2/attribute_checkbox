@@ -8,9 +8,11 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2013-05-13T23:08:13+02:00
+ * last-updated: 2015-07-11T04:10:49+02:00
  */
 
 $GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published']['0'] = 'Veröffentlichungsstatus in Feld %s ignorieren';
 $GLOBALS['TL_LANG']['MSC']['metamodel_filtersetting']['ignore_published']['1'] = 'Falls ausgewählt wird die Bedingung zur Veröffentlichung für Attribut %s im Filter nicht berücksichtigt.';
+$GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle']['0']       = 'Wechseln';
 $GLOBALS['TL_LANG']['MSC']['metamodelattribute_checkbox']['toggle']['1']       = 'Wechseln';
+
