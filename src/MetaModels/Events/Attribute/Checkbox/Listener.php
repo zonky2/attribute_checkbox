@@ -83,6 +83,12 @@ class Listener extends BaseSubscriber
 
         $toggle->setToggleProperty($attribute->getColName());
 
+        if (intval($attribute->get('check_publish')) === 1
+            && intval($attribute->get('check_inverse')) === 1
+        ) {
+            $toggle->setInverse(true);
+        }
+
         return $toggle;
     }
 
