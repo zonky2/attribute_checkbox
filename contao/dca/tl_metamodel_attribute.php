@@ -14,6 +14,7 @@
  * @author      Christopher Boelter <c.boelter@cogizz.de>
  * @author      David Maack <maack@men-at-work.de>
  * @author      Stefan Heimes <stefan_heimes@hotmail.com>
+ * @author      Sven Baumann <baumann.sv@gmail.com>
  * @copyright   The MetaModels team.
  * @license     LGPL.
  * @filesource
