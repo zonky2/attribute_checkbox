@@ -55,6 +55,7 @@ class Checkbox extends BaseSimple
     public function getAttributeSettingNames()
     {
         return array_merge(parent::getAttributeSettingNames(), array(
+            'mandatory',
             'check_publish',
             'check_listview',
             'check_listviewicon',
