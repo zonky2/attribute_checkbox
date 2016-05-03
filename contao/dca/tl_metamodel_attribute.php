@@ -17,6 +17,7 @@
  * @author     Christopher Boelter <c.boelter@cogizz.de>
  * @author     David Maack <maack@men-at-work.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
+ * @author     Sven Baumann <baumann.sv@gmail.com>
  * @copyright  2012-2016 The MetaModels team.
  * @license    https://github.com/MetaModels/attribute_checkbox/blob/master/LICENSE LGPL-3.0
  * @filesource
@@ -29,7 +30,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['metapalettes']['checkbox extends _
 
 $GLOBALS['TL_DCA']['tl_metamodel_attribute']['metasubpalettes'] = array
 (
-    'check_listview' => array('check_listviewicon', 'check_listviewicondisabled')
+    'check_listview' => array('check_inverse', 'check_listviewicon', 'check_listviewicondisabled')
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_publish'] = array
@@ -52,6 +53,17 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_listview'] = array
     (
         'tl_class'       => 'w50',
         'submitOnChange' => true
+    ),
+);
+
+$GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_inverse'] = array
+(
+    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_inverse'],
+    'exclude'   => true,
+    'inputType' => 'checkbox',
+    'eval'      => array
+    (
+        'tl_class'       => 'w50 cbx'
     ),
 );
 

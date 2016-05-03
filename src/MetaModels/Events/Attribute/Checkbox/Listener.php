@@ -14,6 +14,7 @@
  * @subpackage AttributeAlias
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Christopher Boelter <c.boelter@cogizz.de>
+ * @author     Sven Baumann <baumann.sv@gmail.com>
  * @copyright  2012-2016 The MetaModels team.
  * @license    https://github.com/MetaModels/attribute_checkbox/blob/master/LICENSE LGPL-3.0
  * @filesource
@@ -85,6 +86,10 @@ class Listener extends BaseSubscriber
         }
 
         $toggle->setToggleProperty($attribute->getColName());
+
+        if ($attribute->get('check_inverse') == 1) {
+            $toggle->setInverse(true);
+        }
 
         return $toggle;
     }
