@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/attribute_checkbox.
  *
- * (c) 2012-2016 The MetaModels team.
+ * (c) 2012-2017 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,23 +13,25 @@
  * @package    MetaModels
  * @subpackage AttributeCheckbox
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @copyright  2012-2016 The MetaModels team.
+ * @author     Stefan Heimes <stefan_heimes@hotmail.com>
+ * @copyright  2012-2017 The MetaModels team.
  * @license    https://github.com/MetaModels/attribute_checkbox/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 
+use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\GetPropertyOptionsEvent;
 use ContaoCommunityAlliance\DcGeneral\DataDefinition\Palette\Condition\Property\PropertyFalseCondition;
 use ContaoCommunityAlliance\DcGeneral\DataDefinition\Palette\Condition\Property\PropertyTrueCondition;
+use MetaModels\Attribute\Checkbox\AttributeTypeFactory;
 use MetaModels\Attribute\Checkbox\Checkbox;
-use MetaModels\Events\CreatePropertyConditionEvent;
-use MetaModels\MetaModelsEvents;
-use MetaModels\Events\MetaModelsBootEvent;
+use MetaModels\Attribute\Events\CreateAttributeFactoryEvent;
 use MetaModels\Events\Attribute\Checkbox\Listener;
 use MetaModels\Events\Attribute\Checkbox\PublishedFilterSettingTypeRenderer;
-use MetaModels\Attribute\Events\CreateAttributeFactoryEvent;
-use MetaModels\Attribute\Checkbox\AttributeTypeFactory;
+use MetaModels\Events\CreatePropertyConditionEvent;
+use MetaModels\Events\MetaModelsBootEvent;
 use MetaModels\Filter\Setting\Events\CreateFilterSettingFactoryEvent;
 use MetaModels\Filter\Setting\Published\FilterSettingTypeFactory;
+use MetaModels\MetaModelsEvents;
 
 return [
     MetaModelsEvents::SUBSYSTEM_BOOT_BACKEND => [
@@ -72,5 +74,14 @@ return [
         },
         -10
         ]
+    ],
+    MetaModelsEvents::SUBSYSTEM_BOOT_FRONTEND => [
+        function (MetaModelsBootEvent $event) {
+            $dispatcher = $event->getServiceContainer()->getEventDispatcher();
+            $dispatcher->addListener(
+                GetPropertyOptionsEvent::NAME,
+                'MetaModels\Events\Attribute\Checkbox\CheckboxOptionsProvider::getPropertyOptions',
+                200);
+        }
     ]
 ];
