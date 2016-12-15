@@ -77,7 +77,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_listviewicon'] = a
         'fieldType'  => 'radio',
         'files'      => true,
         'filesOnly'  => true,
-        'extensions' => 'jpg,jpeg,gif,png,tif,tiff',
+        'extensions' => 'jpg,jpeg,gif,png,tif,tiff,svg',
         'tl_class'   => 'clr'
     )
 );
@@ -92,7 +92,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_listviewicondisabl
         'fieldType'  => 'radio',
         'files'      => true,
         'filesOnly'  => true,
-        'extensions' => 'jpg,jpeg,gif,png,tif,tiff',
+        'extensions' => 'jpg,jpeg,gif,png,tif,tiff,svg',
         'tl_class'   => 'clr'
     )
 );
