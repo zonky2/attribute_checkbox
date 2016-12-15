@@ -25,6 +25,7 @@
 
 namespace MetaModels\Attribute\Checkbox;
 
+use Contao\Database;
 use MetaModels\Attribute\BaseSimple;
 
 /**
@@ -32,6 +33,13 @@ use MetaModels\Attribute\BaseSimple;
  */
 class Checkbox extends BaseSimple
 {
+    /**
+     * The database.
+     *
+     * @var Database
+     */
+    protected $database;
+
     /**
      * Determine if the attribute is for publish usage.
      *
@@ -93,5 +101,19 @@ class Checkbox extends BaseSimple
         }
 
         return parent::getFilterOptions($idList, $usedOnly, $arrCount);
+    }
+
+    /**
+     * Retrieve the database.
+     *
+     * @return Database
+     */
+    protected function getDatabase()
+    {
+        if (null !== $this->database) {
+            return $this->database;
+        }
+
+        return $this->database = $this->getMetaModel()->getServiceContainer()->getDatabase();
     }
 }
