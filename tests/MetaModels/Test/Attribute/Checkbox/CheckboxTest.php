@@ -34,15 +34,11 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      * @param string $language         The language.
      * @param string $fallbackLanguage The fallback language.
      *
-     * @return IMetaModel
+     * @return IMetaModel|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function mockMetaModel($language, $fallbackLanguage)
     {
-        $metaModel = $this->getMock(
-            'MetaModels\MetaModel',
-            array(),
-            array(array())
-        );
+        $metaModel = $this->getMockForAbstractClass('MetaModels\IMetaModel');
 
         $metaModel
             ->expects($this->any())
@@ -71,6 +67,67 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
     {
         $text = new Checkbox($this->mockMetaModel('en', 'en'));
         $this->assertInstanceOf('MetaModels\Attribute\Checkbox\Checkbox', $text);
+    }
+
+    /**
+     * Data provider for the testSearchFor() method.
+     *
+     * @return array
+     */
+    public function searchForProvider()
+    {
+        return [
+            'search for \'\''       => ['', ''],
+            'search for false'      => ['', false],
+            'search for 0'          => ['', 0],
+            'search for \'0\''      => ['', '0'],
+            'search for \'string\'' => ['1', 'string'],
+            'search for true'       => ['1', true],
+            'search for 1'          => ['1', 1],
+            'search for \'1\''      => ['1', '1'],
+        ];
+    }
+
+    /**
+     * Test the search for method.
+     *
+     * @param string $expectedParameter The expected search parameter for the query.
+     * @param mixed  $searchValue       The search input value.
+     *
+     * @return void
+     *
+     * @dataProvider searchForProvider
+     */
+    public function testSearchFor($expectedParameter, $searchValue)
+    {
+        $resultSet = $this
+            ->getMockBuilder('stdClass')
+            ->setMethods(['fetchEach'])
+            ->getMockForAbstractClass();
+        $resultSet->expects($this->once())->method('fetchEach')->with('id')->willReturn(['success']);
+
+        $dataBase = $this
+            ->getMockBuilder('stdClass')
+            ->setMethods(['prepare', 'execute'])
+            ->getMockForAbstractClass();
+        $dataBase
+            ->expects($this->once())
+            ->method('prepare')
+            ->with('SELECT id FROM mm_unittest WHERE testcol = ?')
+            ->willReturn($dataBase);
+        $dataBase
+            ->expects($this->once())
+            ->method('execute')
+            ->with($expectedParameter)
+            ->willReturn($resultSet);
+        $container = $this->getMockForAbstractClass('MetaModels\IMetaModelsServiceContainer');
+        $container->expects($this->once())->method('getDatabase')->willReturn($dataBase);
+        $metaModel = $this->mockMetaModel('en', 'en');
+        $metaModel->expects($this->once())->method('getServiceContainer')->willReturn($container);
+
+        $checkbox = new Checkbox($metaModel, ['colname' => 'testcol']);
+
+        $this->assertSame(['success'], $checkbox->searchFor($searchValue));
     }
 
     /**
