@@ -125,6 +125,29 @@ class Checkbox extends BaseSimple
     }
 
     /**
+     * Search all items that match the given expression.
+     *
+     * @param string $strPattern The text to search for - this value will get cast to a boolean expession.
+     *
+     * @return int[] the ids of matching items.
+     */
+    public function searchFor($strPattern)
+    {
+        $objQuery = $this->getDatabase()
+            ->prepare(
+                sprintf(
+                    'SELECT id FROM %s WHERE %s = ?',
+                    $this->getMetaModel()->getTableName(),
+                    $this->getColName()
+                )
+            )
+            ->execute((bool) $strPattern ? '1' : '');
+
+        $arrIds = $objQuery->fetchEach('id');
+        return $arrIds;
+    }
+
+    /**
      * Retrieve the database.
      *
      * @return Database
