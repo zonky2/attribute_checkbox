@@ -148,6 +148,30 @@ class Checkbox extends BaseSimple
     }
 
     /**
+     * Take the raw data from the DB column and unserialize it.
+     *
+     * @param string $value The input value.
+     *
+     * @return string
+     */
+    public function unserializeData($value)
+    {
+        return (bool) $value ? '1' : '';
+    }
+
+    /**
+     * Take the unserialized data and serialize it for the native DB column.
+     *
+     * @param mixed $value The input value.
+     *
+     * @return string
+     */
+    public function serializeData($value)
+    {
+        return (bool) $value ? '1' : '';
+    }
+
+    /**
      * Retrieve the database.
      *
      * @return Database

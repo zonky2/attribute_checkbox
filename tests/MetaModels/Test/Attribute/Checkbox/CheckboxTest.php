@@ -72,4 +72,74 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         $text = new Checkbox($this->mockMetaModel('en', 'en'));
         $this->assertInstanceOf('MetaModels\Attribute\Checkbox\Checkbox', $text);
     }
+
+    /**
+     * Generate test data for testSerialize().
+     *
+     * @return array
+     */
+    public function serializeProvider()
+    {
+        return [
+            'false is empty'        => ['', false],
+            '0 is empty'            => ['', 0],
+            'empty string is empty' => ['', ''],
+            '\'0\' is empty'        => ['', '0'],
+            'true is \'1\''         => ['1', true],
+            '5 is \'1\''            => ['1', 5],
+            '\'string\' is \'1\''   => ['1', 'string'],
+        ];
+    }
+
+    /**
+     * Test that the attribute can be instantiated.
+     *
+     * @param string $expected The expected value.
+     * @param mixed  $value    The input value.
+     *
+     * @return void
+     *
+     * @dataProvider serializeProvider
+     */
+    public function testSerialize($expected, $value)
+    {
+        $checkbox = new Checkbox($this->mockMetaModel('en', 'en'));
+        $this->assertEquals($expected, $checkbox->serializeData($value));
+        $this->assertSame($expected, $checkbox->serializeData($value));
+    }
+
+    /**
+     * Generate test data for testSerialize().
+     *
+     * @return array
+     */
+    public function unserializeProvider()
+    {
+        return [
+            'false is empty'        => ['', false],
+            '0 is empty'            => ['', 0],
+            'empty string is empty' => ['', ''],
+            '\'0\' is empty'        => ['', '0'],
+            'true is \'1\''         => ['1', true],
+            '5 is \'1\''            => ['1', 5],
+            '\'string\' is \'1\''   => ['1', 'string'],
+        ];
+    }
+
+    /**
+     * Test that the attribute can be instantiated.
+     *
+     * @param string $expected The expected value.
+     * @param mixed  $value    The input value.
+     *
+     * @return void
+     *
+     * @dataProvider unserializeProvider
+     */
+    public function testUnserialize($expected, $value)
+    {
+        $checkbox = new Checkbox($this->mockMetaModel('en', 'en'));
+        $this->assertEquals($expected, $checkbox->unserializeData($value));
+        $this->assertSame($expected, $checkbox->unserializeData($value));
+    }
 }
