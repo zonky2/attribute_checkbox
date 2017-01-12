@@ -8,15 +8,15 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-09-18T09:47:33+02:00
+ * last-updated: 2017-01-12T08:10:27+01:00
  */
 
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_inverse']['0']              = 'Invertierte Anzeigeoption';
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_inverse']['1']              = 'Ist diese Option gesetzt, wird der Status "Veröffentlichen" invertiert (umgekehrt), d.h. das Element wird nicht angezeigt wenn diese Option gesetzt wird (Analog der Einstellung "Unsichtbar" bei den Contao-Inhaltselementen)';
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_listview']['0']             = 'Listenanzeige-Checkbox ';
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_listview']['1']             = 'Ist diese Option gesetzt, wird ein zusätzliches Icon in der Listenanzeige des Backends eingefügt.';
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_listviewicon']['0']         = 'Icon der Listenanzeige';
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_listviewicon']['1']         = 'Das Icon wird in der Listenanzeige des Backends gezeigt.';
-$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_inverse']['0']              = 'Umkehren';
-$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_inverse']['1']              = 'Ist diese Option gesetzt, wird das verhalten der Veröffentlichung gekehrt (z.B. Content Elemente).';
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_listviewicondisabled']['0'] = 'Icon in der Listenansicht nicht anzeigen.';
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_listviewicondisabled']['1'] = 'Icon in der Listenansicht nicht anzeigen.';
 $GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_publish']['0']              = 'Veröffentlichen';
