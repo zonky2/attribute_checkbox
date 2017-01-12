@@ -13,6 +13,7 @@
  * @package    MetaModels
  * @subpackage Core
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
+ * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @copyright  2012-2017 The MetaModels team.
  * @license    https://github.com/MetaModels/attribute_checkbox/blob/master/LICENSE LGPL-3.0
  * @filesource
@@ -22,8 +23,6 @@ namespace MetaModels\Events\Attribute\Checkbox;
 
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\GetPropertyOptionsEvent;
 use MetaModels\Attribute\Checkbox\Checkbox;
-use MetaModels\Attribute\IAttribute;
-use MetaModels\Attribute\TranslatedCheckbox\TranslatedCheckbox;
 use MetaModels\DcGeneral\Data\Model;
 
 /**
@@ -46,12 +45,9 @@ class CheckboxOptionsProvider
         }
 
         $attribute = $model->getItem()->getAttribute($event->getPropertyName());
-        if (!($attribute instanceof IAttribute)) {
-            return;
-        }
 
         // Check if we have a checkbox.
-        if (!is_a($attribute, Checkbox::class) && !is_a($attribute, TranslatedCheckbox::class)) {
+        if (!($attribute instanceof Checkbox)) {
             return;
         }
 
