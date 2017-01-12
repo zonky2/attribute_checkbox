@@ -1,21 +1,25 @@
 <?php
+
 /**
- * The MetaModels extension allows the creation of multiple collections of custom items,
- * each with its own unique set of selectable attributes, with attribute extendability.
- * The Front-End modules allow you to build powerful listing and filtering of the
- * data in each collection.
+ * This file is part of MetaModels/attribute_checkbox.
  *
- * PHP version 5
+ * (c) 2012-2016 The MetaModels team.
  *
- * @package     MetaModels
- * @subpackage  AttributeCheckbox
- * @author      Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @author      Andreas Isaak <info@andreas-isaak.de>
- * @author      Christopher Boelter <c.boelter@cogizz.de>
- * @author      David Maack <maack@men-at-work.de>
- * @author      Stefan Heimes <stefan_heimes@hotmail.com>
- * @copyright   The MetaModels team.
- * @license     LGPL.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
+ *
+ * @package    MetaModels
+ * @subpackage AttributeCheckbox
+ * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
+ * @author     Andreas Isaak <info@andreas-isaak.de>
+ * @author     Christopher Boelter <c.boelter@cogizz.de>
+ * @author     David Maack <maack@men-at-work.de>
+ * @author     Stefan Heimes <stefan_heimes@hotmail.com>
+ * @author     Sven Baumann <baumann.sv@gmail.com>
+ * @copyright  2012-2016 The MetaModels team.
+ * @license    https://github.com/MetaModels/attribute_checkbox/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 
@@ -26,7 +30,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['metapalettes']['checkbox extends _
 
 $GLOBALS['TL_DCA']['tl_metamodel_attribute']['metasubpalettes'] = array
 (
-    'check_listview' => array('check_listviewicon', 'check_listviewicondisabled')
+    'check_listview' => array('check_inverse', 'check_listviewicon', 'check_listviewicondisabled')
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_publish'] = array
@@ -52,6 +56,17 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_listview'] = array
     ),
 );
 
+$GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_inverse'] = array
+(
+    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_inverse'],
+    'exclude'   => true,
+    'inputType' => 'checkbox',
+    'eval'      => array
+    (
+        'tl_class'       => 'w50 cbx'
+    ),
+);
+
 $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_listviewicon'] = array
 (
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_attribute']['check_listviewicon'],
@@ -62,7 +77,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_listviewicon'] = a
         'fieldType'  => 'radio',
         'files'      => true,
         'filesOnly'  => true,
-        'extensions' => 'jpg,jpeg,gif,png,tif,tiff',
+        'extensions' => 'jpg,jpeg,gif,png,tif,tiff,svg',
         'tl_class'   => 'clr'
     )
 );
@@ -77,7 +92,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_attribute']['fields']['check_listviewicondisabl
         'fieldType'  => 'radio',
         'files'      => true,
         'filesOnly'  => true,
-        'extensions' => 'jpg,jpeg,gif,png,tif,tiff',
+        'extensions' => 'jpg,jpeg,gif,png,tif,tiff,svg',
         'tl_class'   => 'clr'
     )
 );

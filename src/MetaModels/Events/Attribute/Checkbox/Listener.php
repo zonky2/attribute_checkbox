@@ -1,18 +1,22 @@
 <?php
+
 /**
- * The MetaModels extension allows the creation of multiple collections of custom items,
- * each with its own unique set of selectable attributes, with attribute extendability.
- * The Front-End modules allow you to build powerful listing and filtering of the
- * data in each collection.
+ * This file is part of MetaModels/attribute_alias.
  *
- * PHP version 5
+ * (c) 2012-2016 The MetaModels team.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
  *
  * @package    MetaModels
- * @subpackage AttributeCheckbox
+ * @subpackage AttributeAlias
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Christopher Boelter <c.boelter@cogizz.de>
- * @copyright  The MetaModels team.
- * @license    LGPL.
+ * @author     Sven Baumann <baumann.sv@gmail.com>
+ * @copyright  2012-2016 The MetaModels team.
+ * @license    https://github.com/MetaModels/attribute_checkbox/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 
@@ -83,6 +87,10 @@ class Listener extends BaseSubscriber
 
         $toggle->setToggleProperty($attribute->getColName());
 
+        if ($attribute->get('check_inverse') == 1) {
+            $toggle->setInverse(true);
+        }
+
         return $toggle;
     }
 
@@ -99,29 +107,33 @@ class Listener extends BaseSubscriber
     public function handle(BuildMetaModelOperationsEvent $event)
     {
         foreach ($event->getMetaModel()->getAttributes() as $attribute) {
-            if (($attribute instanceof Checkbox)
-                && (($attribute->get('check_publish') == 1)
+            if (!($attribute instanceof Checkbox)
+                || !(($attribute->get('check_publish') == 1)
                     || ($attribute->get('check_listview') == 1))
+                || (null === $event->getInputScreen()->getProperty($attribute->getColName()))
             ) {
-                $toggle    = $this->buildCommand($attribute);
-                $container = $event->getContainer();
-                if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME)) {
-                    $view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
+                continue;
+            }
+
+            $toggle    = $this->buildCommand($attribute);
+            $container = $event->getContainer();
+
+            if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME)) {
+                $view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
+            } else {
+                $view = new Contao2BackendViewDefinition();
+                $container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
+            }
+
+            $commands = $view->getModelCommands();
+
+            if (!$commands->hasCommandNamed($toggle->getName())) {
+                if ($commands->hasCommandNamed('show')) {
+                    $info = $commands->getCommandNamed('show');
                 } else {
-                    $view = new Contao2BackendViewDefinition();
-                    $container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
+                    $info = null;
                 }
-
-                $commands = $view->getModelCommands();
-
-                if (!$commands->hasCommandNamed($toggle->getName())) {
-                    if ($commands->hasCommandNamed('show')) {
-                        $info = $commands->getCommandNamed('show');
-                    } else {
-                        $info = null;
-                    }
-                    $commands->addCommand($toggle, $info);
-                }
+                $commands->addCommand($toggle, $info);
             }
         }
     }
