@@ -110,6 +110,7 @@ class Listener extends BaseSubscriber
             if (!($attribute instanceof Checkbox)
                 || !(($attribute->get('check_publish') == 1)
                     || ($attribute->get('check_listview') == 1))
+                || (null === $event->getInputScreen()->getProperty($attribute->getColName()))
             ) {
                 continue;
             }
