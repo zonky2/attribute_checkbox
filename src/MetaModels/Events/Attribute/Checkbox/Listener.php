@@ -107,29 +107,32 @@ class Listener extends BaseSubscriber
     public function handle(BuildMetaModelOperationsEvent $event)
     {
         foreach ($event->getMetaModel()->getAttributes() as $attribute) {
-            if (($attribute instanceof Checkbox)
-                && (($attribute->get('check_publish') == 1)
+            if (!($attribute instanceof Checkbox)
+                || !(($attribute->get('check_publish') == 1)
                     || ($attribute->get('check_listview') == 1))
             ) {
-                $toggle    = $this->buildCommand($attribute);
-                $container = $event->getContainer();
-                if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME)) {
-                    $view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
+                continue;
+            }
+
+            $toggle    = $this->buildCommand($attribute);
+            $container = $event->getContainer();
+
+            if ($container->hasDefinition(Contao2BackendViewDefinitionInterface::NAME)) {
+                $view = $container->getDefinition(Contao2BackendViewDefinitionInterface::NAME);
+            } else {
+                $view = new Contao2BackendViewDefinition();
+                $container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
+            }
+
+            $commands = $view->getModelCommands();
+
+            if (!$commands->hasCommandNamed($toggle->getName())) {
+                if ($commands->hasCommandNamed('show')) {
+                    $info = $commands->getCommandNamed('show');
                 } else {
-                    $view = new Contao2BackendViewDefinition();
-                    $container->setDefinition(Contao2BackendViewDefinitionInterface::NAME, $view);
+                    $info = null;
                 }
-
-                $commands = $view->getModelCommands();
-
-                if (!$commands->hasCommandNamed($toggle->getName())) {
-                    if ($commands->hasCommandNamed('show')) {
-                        $info = $commands->getCommandNamed('show');
-                    } else {
-                        $info = null;
-                    }
-                    $commands->addCommand($toggle, $info);
-                }
+                $commands->addCommand($toggle, $info);
             }
         }
     }
