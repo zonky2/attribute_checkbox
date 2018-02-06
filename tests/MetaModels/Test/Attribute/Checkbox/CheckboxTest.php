@@ -22,11 +22,12 @@ namespace MetaModels\Test\Attribute\Checkbox;
 
 use MetaModels\Attribute\Checkbox\Checkbox;
 use MetaModels\IMetaModel;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit tests to test class Checkbox.
  */
-class CheckboxTest extends \PHPUnit_Framework_TestCase
+class CheckboxTest extends TestCase
 {
     /**
      * Mock a MetaModel.
